@@ -23,13 +23,13 @@ struct RollingQuoteView: View {
     
     private func startQuoteTimer() {
         Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { timer in
-            withAnimation(.easeInOut(duration: 0.5)) {
+            withAnimation(.easeInOut(duration: 0.6)) {
                 opacity = 0
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 currentQuoteIndex = (currentQuoteIndex + 1) % quotes.count
-                withAnimation(.easeInOut(duration: 0.5)) {
+                withAnimation(.easeInOut(duration: 0.6)) {
                     opacity = 1
                 }
             }

@@ -13,6 +13,15 @@
 		063079842DC66DCC00781852 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0630797F2DC66DCB00781852 /* ContentView.swift */; };
 		063079862DC671FA00781852 /* AddCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063079852DC671FA00781852 /* AddCategoryView.swift */; };
 		063079882DC684B000781852 /* RollingQuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063079872DC684B000781852 /* RollingQuoteView.swift */; };
+		06EDB1C02DC7982900094050 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDB1BB2DC7982900094050 /* ShareSheet.swift */; };
+		06EDB1C12DC7982900094050 /* ImportExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDB1BC2DC7982900094050 /* ImportExportManager.swift */; };
+		06EDB1C22DC7982900094050 /* SearchViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDB1BD2DC7982900094050 /* SearchViews.swift */; };
+		06EDB1C32DC7982900094050 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDB1BE2DC7982900094050 /* StatisticsView.swift */; };
+		06EDB1C42DC7982900094050 /* EditTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDB1BF2DC7982900094050 /* EditTaskView.swift */; };
+		06EDB1C62DC79E7F00094050 /* CategoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDB1C52DC79E7E00094050 /* CategoryCard.swift */; };
+		06EDB1C82DC7CA7F00094050 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDB1C72DC7CA7E00094050 /* SettingsView.swift */; };
+		06EDB1CA2DC7CF8700094050 /* CreditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDB1C92DC7CF8700094050 /* CreditsView.swift */; };
+		06EDB1CC2DC7E02E00094050 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDB1CB2DC7E02E00094050 /* ThemeManager.swift */; };
 		06F020A62DC53F9600277BE0 /* To_Do_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F020A52DC53F9600277BE0 /* To_Do_AppApp.swift */; };
 		06F020A82DC53F9600277BE0 /* CalendarTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F020A72DC53F9600277BE0 /* CalendarTaskView.swift */; };
 		06F020AA2DC53F9A00277BE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06F020A92DC53F9A00277BE0 /* Assets.xcassets */; };
@@ -46,6 +55,15 @@
 		0630797F2DC66DCB00781852 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		063079852DC671FA00781852 /* AddCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCategoryView.swift; sourceTree = "<group>"; };
 		063079872DC684B000781852 /* RollingQuoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RollingQuoteView.swift; sourceTree = "<group>"; };
+		06EDB1BB2DC7982900094050 /* ShareSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		06EDB1BC2DC7982900094050 /* ImportExportManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportExportManager.swift; sourceTree = "<group>"; };
+		06EDB1BD2DC7982900094050 /* SearchViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViews.swift; sourceTree = "<group>"; };
+		06EDB1BE2DC7982900094050 /* StatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		06EDB1BF2DC7982900094050 /* EditTaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskView.swift; sourceTree = "<group>"; };
+		06EDB1C52DC79E7E00094050 /* CategoryCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCard.swift; sourceTree = "<group>"; };
+		06EDB1C72DC7CA7E00094050 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		06EDB1C92DC7CF8700094050 /* CreditsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsView.swift; sourceTree = "<group>"; };
+		06EDB1CB2DC7E02E00094050 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		06F020A22DC53F9600277BE0 /* To-Do App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To-Do App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		06F020A52DC53F9600277BE0 /* To_Do_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_AppApp.swift; sourceTree = "<group>"; };
 		06F020A72DC53F9600277BE0 /* CalendarTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CalendarTaskView.swift; path = "/Users/shemacharmant/Desktop/To-Do App/To-Do App/CalendarTaskView.swift"; sourceTree = "<absolute>"; };
@@ -106,6 +124,14 @@
 		06F020A42DC53F9600277BE0 /* To-Do App */ = {
 			isa = PBXGroup;
 			children = (
+				06EDB1C92DC7CF8700094050 /* CreditsView.swift */,
+				06EDB1C72DC7CA7E00094050 /* SettingsView.swift */,
+				06EDB1C52DC79E7E00094050 /* CategoryCard.swift */,
+				06EDB1BF2DC7982900094050 /* EditTaskView.swift */,
+				06EDB1BC2DC7982900094050 /* ImportExportManager.swift */,
+				06EDB1BD2DC7982900094050 /* SearchViews.swift */,
+				06EDB1BB2DC7982900094050 /* ShareSheet.swift */,
+				06EDB1BE2DC7982900094050 /* StatisticsView.swift */,
 				063079872DC684B000781852 /* RollingQuoteView.swift */,
 				063079852DC671FA00781852 /* AddCategoryView.swift */,
 				0630797B2DC66DCB00781852 /* AddTaskView.swift */,
@@ -114,6 +140,7 @@
 				0630797E2DC66DCB00781852 /* TaskListView.swift */,
 				06F020A52DC53F9600277BE0 /* To_Do_AppApp.swift */,
 				06F020A72DC53F9600277BE0 /* CalendarTaskView.swift */,
+				06EDB1CB2DC7E02E00094050 /* ThemeManager.swift */,
 				06F020A92DC53F9A00277BE0 /* Assets.xcassets */,
 				06F020AB2DC53F9A00277BE0 /* Preview Content */,
 			);
@@ -275,13 +302,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06EDB1C82DC7CA7F00094050 /* SettingsView.swift in Sources */,
+				06EDB1CA2DC7CF8700094050 /* CreditsView.swift in Sources */,
+				06EDB1C12DC7982900094050 /* ImportExportManager.swift in Sources */,
+				06EDB1C42DC7982900094050 /* EditTaskView.swift in Sources */,
+				06EDB1C32DC7982900094050 /* StatisticsView.swift in Sources */,
 				063079862DC671FA00781852 /* AddCategoryView.swift in Sources */,
+				06EDB1C22DC7982900094050 /* SearchViews.swift in Sources */,
 				063079882DC684B000781852 /* RollingQuoteView.swift in Sources */,
 				063079802DC66DCC00781852 /* AddTaskView.swift in Sources */,
 				063079842DC66DCC00781852 /* ContentView.swift in Sources */,
+				06EDB1CC2DC7E02E00094050 /* ThemeManager.swift in Sources */,
 				06F020A82DC53F9600277BE0 /* CalendarTaskView.swift in Sources */,
 				06F020A62DC53F9600277BE0 /* To_Do_AppApp.swift in Sources */,
 				063079812DC66DCC00781852 /* Models.swift in Sources */,
+				06EDB1C62DC79E7F00094050 /* CategoryCard.swift in Sources */,
+				06EDB1C02DC7982900094050 /* ShareSheet.swift in Sources */,
 				063079832DC66DCC00781852 /* TaskListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,26 +1,97 @@
 import SwiftUI
 import UserNotifications
+import CoreHaptics
 
+// MARK: - Content View
 struct ContentView: View {
-    // MARK: - State
+    // MARK: - Haptics
+    @State private var engine: CHHapticEngine?
+    
+    // MARK: - State Properties
     @State private var categories = [
-        TaskCategory(name: "Work", icon: "briefcase.fill", color: .orange, taskCount: 14, completedCount: 7),
-        TaskCategory(name: "Music", icon: "music.note", color: .purple, taskCount: 6, completedCount: 2),
-        TaskCategory(name: "Travel", icon: "airplane", color: .green, taskCount: 7, completedCount: 3),
-        TaskCategory(name: "Study", icon: "book.fill", color: .indigo, taskCount: 2, completedCount: 1),
-        TaskCategory(name: "Home", icon: "house.fill", color: .red, taskCount: 14, completedCount: 10)
+        TaskCategory(
+            name: "Work",
+            icon: "briefcase.fill",
+            color: "#FF9500",  // Orange
+            taskCount: 0,
+            completedCount: 0
+        ),
+        TaskCategory(
+            name: "Personal",
+            icon: "person.fill",
+            color: "#FF2D55",  // Pink
+            taskCount: 0,
+            completedCount: 0
+        ),
+        TaskCategory(
+            name: "Music",
+            icon: "music.note",
+            color: "#BF5AF2",  // Purple
+            taskCount: 0,
+            completedCount: 0
+        ),
+        TaskCategory(
+            name: "Travel",
+            icon: "airplane",
+            color: "#32D74B",  // Green
+            taskCount: 0,
+            completedCount: 0
+        ),
+        TaskCategory(
+            name: "Study",
+            icon: "book.fill",
+            color: "#5E5CE6",  // Indigo
+            taskCount: 0,
+            completedCount: 0
+        ),
+        TaskCategory(
+            name: "Home",
+            icon: "house.fill",
+            color: "#FF3B30",  // Red
+            taskCount: 0,
+            completedCount: 0
+        ),
+        TaskCategory(
+            name: "Shopping",
+            icon: "cart.fill",
+            color: "#64D2FF",  // Light Blue
+            taskCount: 0,
+            completedCount: 0
+        ),
+        TaskCategory(
+            name: "Health",
+            icon: "heart.fill",
+            color: "#30B0C7",  // Teal
+            taskCount: 0,
+            completedCount: 0
+        ),
+        TaskCategory(
+            name: "Finance",
+            icon: "dollarsign.circle.fill",
+            color: "#30D158",  // Mint
+            taskCount: 0,
+            completedCount: 0
+        )
     ]
     
-    @State private var tasks: [TodoTask] = [
-        TodoTask(title: "Call Max", date: Date().addingTimeInterval(-3600), category: "Work", isDone: false, priority: .high, note: "Discuss project"),
-        TodoTask(title: "Practice piano", date: Date(), category: "Music", isDone: false, priority: .medium),
-        TodoTask(title: "Learn Spanish", date: Date().addingTimeInterval(3600), category: "Study", isDone: false, priority: .low)
-    ]
+    @State private var tasks: [TodoTask] = {
+        if let data = UserDefaults.standard.data(forKey: "savedTasks"),
+           let decodedTasks = try? JSONDecoder().decode([TodoTask].self, from: data) {
+            return decodedTasks
+        }
+        return []
+    }()
     
     @State private var selectedCategory: TaskCategory? = nil
     @State private var showAddTask = false
     @State private var showCalendar = false
     @State private var showAddCategory = false
+    @State private var showStatistics = false
+    @State private var isDarkMode = UserDefaults.standard.bool(forKey: "isDarkMode")
+    @State private var searchText = ""
+    @State private var isSearching = false
+    @State private var showImportExport = false
+    @State private var showSettings = false
     
     // MARK: - Constants
     private let quotes = [
@@ -33,71 +104,116 @@ struct ContentView: View {
     ]
     
     // MARK: - Computed Properties
+    private var filteredTasks: [TodoTask] {
+        if searchText.isEmpty { return tasks }
+        return tasks.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+    }
+    
     private var totalTasks: Int { tasks.count }
     private var completedTasks: Int { tasks.filter { $0.isDone }.count }
     
+    // MARK: - Body
     var body: some View {
         NavigationView {
-            ZStack(alignment: .bottomTrailing) { // Added ZStack for floating button
+            ZStack(alignment: .bottomTrailing) {
                 GeometryReader { geometry in
                     ScrollView {
                         VStack(alignment: .leading, spacing: 16) {
-                            // Quote View
-                            RollingQuoteView(quotes: quotes)
+                            // Search Bar
+                            SearchBar(text: $searchText, isSearching: $isSearching)
                                 .padding(.horizontal)
                                 .padding(.top, 16)
                             
-                            // Header with Stats
-                            HStack {
-                                Text("Lists")
-                                    .font(.largeTitle).bold()
-                                Spacer()
-                                Button(action: { showCalendar = true }) {
-                                    Image(systemName: "calendar")
-                                        .font(.title2)
+                            if isSearching {
+                                GlobalSearchResultsView(tasks: filteredTasks)
+                                    .padding(.horizontal)
+                            } else {
+                                // Quote View with blur effect
+                                if UserDefaults.standard.bool(forKey: "showQuotes") {
+                                    RollingQuoteView(quotes: quotes)
+                                        .padding(.horizontal)
+                                        .padding(.top, 8)
                                 }
-                            }
-                            .padding(.horizontal)
-                            
-                            // Stats and Add Category Button
-                            HStack {
-                                Text("Completed: \(completedTasks)/\(totalTasks) tasks")
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
+                                // Header with Actions
+                                HStack {
+                                    Text("Lists")
+                                        .font(.largeTitle).bold()
+                                    Spacer()
+                                    HStack(spacing: 12) {
+                                        Button(action: { showCalendar = true }) {
+                                            Image(systemName: "calendar")
+                                                .font(.system(size: 18))
+                                        }
+                                        Button(action: { showStatistics = true }) {
+                                            Image(systemName: "chart.bar.fill")
+                                                .font(.system(size: 18))
+                                        }
+                                        Button(action: {
+                                            isDarkMode.toggle()
+                                            UserDefaults.standard.set(isDarkMode, forKey: "isDarkMode")
+                                        }) {
+                                            Image(systemName: isDarkMode ? "sun.max.fill" : "moon.fill")
+                                                .font(.system(size: 18))
+                                        }
+                                        Button(action: { showImportExport = true }) {
+                                            Image(systemName: "square.and.arrow.up.on.square")
+                                                .font(.system(size: 18))
+                                        }
+                                        Button(action: { showSettings = true }) {
+                                            Image(systemName: "gearshape.fill")
+                                                .font(.system(size: 18))
+                                        }
+                                    }
                                     .padding(8)
-                                    .background(Color.secondary.opacity(0.1))
-                                    .cornerRadius(8)
-                                
-                                Spacer()
-                                
-                                Button(action: { showAddCategory = true }) {
-                                    Label("Add Category", systemImage: "plus.app")
-                                        .font(.subheadline)
-                                        .padding(8)
-                                        .background(Color.blue.opacity(0.1))
-                                        .cornerRadius(10)
+                                    .background(.ultraThinMaterial)
+                                    .cornerRadius(10)
                                 }
-                            }
-                            .padding(.horizontal)
-                            
-                            // Responsive Grid
-                            let adaptiveColumns = [
-                                GridItem(.adaptive(minimum: 150, maximum: 250), spacing: 20)
-                            ]
-                            LazyVGrid(columns: adaptiveColumns, spacing: 20) {
-                                ForEach(categories) { category in
-                                    CategoryCard(category: category) {
-                                        selectedCategory = category
+                                .padding(.horizontal)
+                                
+                                // Stats and Add Category
+                                HStack {
+                                    Text("Completed: \(completedTasks)/\(totalTasks) tasks")
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                        .padding(8)
+                                        .background(Color.secondary.opacity(0.1))
+                                        .cornerRadius(8)
+                                    
+                                    Spacer()
+                                    
+                                    Button(action: { showAddCategory = true }) {
+                                        Label("Add Category", systemImage: "plus.app")
+                                            .font(.subheadline)
+                                            .padding(8)
+                                            .background(Color.blue.opacity(0.1))
+                                            .cornerRadius(10)
                                     }
                                 }
+                                .padding(.horizontal)
+                                
+                                // Responsive Category Grid
+                                let adaptiveColumns = [
+                                    GridItem(.adaptive(minimum: 150, maximum: 250), spacing: 20)
+                                ]
+                                LazyVGrid(columns: adaptiveColumns, spacing: 20) {
+                                    ForEach(categories) { category in
+                                        CategoryCard(category: category) {
+                                            selectedCategory = category
+                                        }
+                                        .swipeActions(edge: .trailing) {
+                                            Button(role: .destructive) {
+                                                deleteCategory(category)
+                                            } label: {
+                                                Label("Delete", systemImage: "trash")
+                                            }
+                                        }
+                                    }
+                                }
+                                .padding()
+                                
+                                Spacer(minLength: 80)
                             }
-                            .padding()
-                            
-                            // Add bottom padding for FAB
-                            Spacer()
-                                .frame(height: 80)
                         }
-                        .frame(minHeight: geometry.size.height)
                     }
                     .background(Color(.systemGroupedBackground))
                 }
@@ -114,28 +230,102 @@ struct ContentView: View {
                 }
                 .padding(24)
             }
+            .onAppear(perform: prepareHaptics)
             .sheet(item: $selectedCategory) { category in
                 TaskListView(category: category, tasks: $tasks)
             }
             .sheet(isPresented: $showAddTask) {
-                AddTaskView(categories: categories, onAdd: { newTask in
-                    tasks.append(newTask)
-                    if newTask.hasReminder {
-                        scheduleNotification(for: newTask)
-                    }
-                })
-            }
-            .sheet(isPresented: $showCalendar) {
-                CalendarTaskView(tasks: tasks)
+                AddTaskView(categories: categories, onAdd: addNewTask)
             }
             .sheet(isPresented: $showAddCategory) {
                 AddCategoryView(categories: $categories)
             }
+            .sheet(isPresented: $showCalendar) {
+                CalendarTaskView(tasks: tasks)
+            }
+            .sheet(isPresented: $showStatistics) {
+                StatisticsView(tasks: tasks)
+            }
+            .sheet(isPresented: $showImportExport) {
+                ImportExportView(tasks: $tasks)
+            }
+            .sheet(isPresented: $showSettings) {
+                SettingsView()
+            }
+            .onAppear(perform: prepareHaptics)
+            .onChange(of: tasks) { _ in
+                updateCategoryStats()
+                saveTasks()
+            }
         }
     }
     
-    // MARK: - Notifications
+    // MARK: - Methods
+    private func prepareHaptics() {
+        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
+        do {
+            engine = try CHHapticEngine()
+            try engine?.start()
+        } catch {
+            print("Haptics error: \(error.localizedDescription)")
+        }
+    }
+    
+    private func playReminderHaptic() {
+        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
+        var events = [CHHapticEvent]()
+        let intensities = [0.6, 0.4, 0.6, 0.4]
+        let sharpnesses = [0.5, 0.3, 0.5, 0.3]
+        var timeOffset = 0.0
+        
+        for i in 0..<4 {
+            let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(intensities[i]))
+            let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: Float(sharpnesses[i]))
+            let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: timeOffset)
+            events.append(event)
+            timeOffset += 0.15
+        }
+        
+        do {
+            let pattern = try CHHapticPattern(events: events, parameters: [])
+            let player = try engine?.makePlayer(with: pattern)
+            try player?.start(atTime: 0)
+        } catch {
+            print("Failed to play pattern: \(error.localizedDescription)")
+        }
+    }
+    
+    private func updateCategoryStats() {
+        for i in categories.indices {
+            let categoryTasks = tasks.filter { $0.category == categories[i].name }
+            categories[i].taskCount = categoryTasks.count
+            categories[i].completedCount = categoryTasks.filter { $0.isDone }.count
+        }
+    }
+    
+    private func saveTasks() {
+        if let encoded = try? JSONEncoder().encode(tasks) {
+            UserDefaults.standard.set(encoded, forKey: "savedTasks")
+        }
+    }
+    
+    private func addNewTask(_ task: TodoTask) {
+        tasks.append(task)
+        if task.hasReminder {
+            scheduleNotification(for: task)
+        }
+    }
+    
+    private func deleteCategory(_ category: TaskCategory) {
+        withAnimation {
+            tasks.removeAll { $0.category == category.name }
+            categories.removeAll { $0.id == category.id }
+            saveTasks()
+        }
+    }
+    
     private func scheduleNotification(for task: TodoTask) {
+        playReminderHaptic()
         let content = UNMutableNotificationContent()
         content.title = "Reminder: \(task.title)"
         content.body = task.note ?? "You have a task due."
@@ -149,39 +339,6 @@ struct ContentView: View {
             if let error = error {
                 print("DEBUG: Failed to schedule notification: \(error.localizedDescription)")
             }
-        }
-    }
-}
-
-// MARK: - CategoryCard View
-private struct CategoryCard: View {
-    let category: TaskCategory
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            VStack(spacing: 12) {
-                Image(systemName: category.icon)
-                    .font(.system(size: 28))
-                    .foregroundColor(category.color)
-                    .padding(16)
-                    .background(category.color.opacity(0.1))
-                    .clipShape(Circle())
-                Text(category.name)
-                    .font(.headline)
-                Text("\(category.taskCount) Tasks")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                ProgressView(value: Float(category.completedCount) / Float(max(category.taskCount, 1)))
-                    .accentColor(category.color)
-                    .frame(height: 6)
-                    .padding(.top, 4)
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
-            .background(Color(.systemBackground))
-            .cornerRadius(18)
-            .shadow(color: Color.black.opacity(0.04), radius: 8, x: 0, y: 4)
         }
     }
 }

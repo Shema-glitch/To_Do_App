@@ -3,74 +3,50 @@ import SwiftUI
 struct AddCategoryView: View {
     @Binding var categories: [TaskCategory]
     @Environment(\.presentationMode) var presentationMode
+
     @State private var name = ""
     @State private var selectedIcon = "folder.fill"
     @State private var selectedColor = Color.blue
-    
-    private let availableIcons = [
-        "briefcase.fill", "music.note", "airplane", 
-        "book.fill", "house.fill", "cart.fill", 
-        "star.fill", "heart.fill", "folder.fill"
-    ]
-    
-    private let availableColors: [Color] = [
-        .blue, .red, .green, .orange, 
-        .purple, .pink, .yellow, .indigo
-    ]
-    
+
+    let icons = ["folder.fill", "briefcase.fill", "house.fill", "car.fill",
+                 "book.fill", "gamecontroller.fill", "gift.fill", "heart.fill",
+                 "star.fill", "moon.fill", "sun.max.fill", "cloud.fill"]
+
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Category Details")) {
                     TextField("Category Name", text: $name)
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 15) {
-                            ForEach(availableIcons, id: \.self) { icon in
-                                Image(systemName: icon)
-                                    .font(.title2)
-                                    .foregroundColor(selectedIcon == icon ? selectedColor : .gray)
-                                    .padding(8)
-                                    .background(selectedIcon == icon ? selectedColor.opacity(0.1) : Color.clear)
-                                    .clipShape(Circle())
-                                    .onTapGesture {
-                                        selectedIcon = icon
-                                    }
-                            }
+
+                    ColorPicker("Choose Color", selection: $selectedColor)
+                }
+
+                Section(header: Text("Icon")) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))], spacing: 10) {
+                        ForEach(icons, id: \.self) { icon in
+                            Image(systemName: icon)
+                                .font(.title2)
+                                .frame(width: 44, height: 44)
+                                .background(selectedIcon == icon ? selectedColor.opacity(0.2) : Color.clear)
+                                .cornerRadius(8)
+                                .onTapGesture {
+                                    selectedIcon = icon
+                                }
                         }
-                        .padding(.vertical, 8)
                     }
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 15) {
-                            ForEach(availableColors, id: \.self) { color in
-                                Circle()
-                                    .fill(color)
-                                    .frame(width: 30, height: 30)
-                                    .overlay(
-                                        Circle()
-                                            .stroke(Color.white, lineWidth: selectedColor == color ? 2 : 0)
-                                    )
-                                    .shadow(color: .black.opacity(0.1), radius: 2)
-                                    .onTapGesture {
-                                        selectedColor = color
-                                    }
-                            }
-                        }
-                        .padding(.vertical, 8)
-                    }
+                    .padding(.vertical)
                 }
             }
-            .navigationBarTitle("New Category", displayMode: .inline)
+            .navigationTitle("New Category")
             .navigationBarItems(
                 leading: Button("Cancel") {
                     presentationMode.wrappedValue.dismiss()
                 },
-                trailing: Button("Create") {
+                trailing: Button("Save") {
                     let newCategory = TaskCategory(
                         name: name,
                         icon: selectedIcon,
-                        color: selectedColor,
+                        color: selectedColor.toHex(),
                         taskCount: 0,
                         completedCount: 0
                     )
@@ -82,6 +58,7 @@ struct AddCategoryView: View {
         }
     }
 }
+
 
 #Preview {
     AddCategoryView(categories: .constant([]))
