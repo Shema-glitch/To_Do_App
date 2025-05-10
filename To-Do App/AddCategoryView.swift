@@ -3,24 +3,24 @@ import SwiftUI
 struct AddCategoryView: View {
     @Binding var categories: [TaskCategory]
     @Environment(\.presentationMode) var presentationMode
-
+    
     @State private var name = ""
     @State private var selectedIcon = "folder.fill"
     @State private var selectedColor = Color.blue
-
+    
     let icons = ["folder.fill", "briefcase.fill", "house.fill", "car.fill",
                  "book.fill", "gamecontroller.fill", "gift.fill", "heart.fill",
                  "star.fill", "moon.fill", "sun.max.fill", "cloud.fill"]
-
+    
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Category Details")) {
                     TextField("Category Name", text: $name)
-
+                    
                     ColorPicker("Choose Color", selection: $selectedColor)
                 }
-
+                
                 Section(header: Text("Icon")) {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))], spacing: 10) {
                         ForEach(icons, id: \.self) { icon in
@@ -48,9 +48,10 @@ struct AddCategoryView: View {
                         icon: selectedIcon,
                         color: selectedColor.toHex(),
                         taskCount: 0,
-                        completedCount: 0
+                        completedCount: 0,
+                        isCustom: true
                     )
-                    categories.append(newCategory)
+                    TaskCategory.saveCategories(categories + [newCategory])
                     presentationMode.wrappedValue.dismiss()
                 }
                 .disabled(name.isEmpty)
@@ -58,7 +59,6 @@ struct AddCategoryView: View {
         }
     }
 }
-
 
 #Preview {
     AddCategoryView(categories: .constant([]))

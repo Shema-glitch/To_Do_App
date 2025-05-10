@@ -92,7 +92,7 @@ struct ContentView: View {
     @State private var isSearching = false
     @State private var showImportExport = false
     @State private var showSettings = false
-    @AppStorage("hasSeenTutorial") private var hasSeenTutorial = false // Added state for tutorial
+    @State private var hasSeenTutorial = false // Added state for tutorial
     @State private var showingTutorial = false // Added state for tutorial
     
     // MARK: - Constants
@@ -361,12 +361,34 @@ struct ContentView: View {
     }
 }
 
+
+struct TutorialOverlay: View {
+    @Binding var isShowing: Bool
+    let completion: () -> Void
+    
+    var body: some View {
+        //Placeholder for actual tutorial implementation
+        VStack {
+            Text("Tutorial Overlay")
+            Button("Close Tutorial") {
+            isShowing = false
+            completion()
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.regularMaterial)
+        .opacity(0.9)
+    }
+}
+
+
+
 // MARK: - Preview
 #Preview {
     Group {
         ContentView()
             .previewDevice("iPhone SE (3rd generation)")
         ContentView()
-            .previewDevice("iPhone 15")
+            .previewDevice("iPhone 15 Pro Max")
     }
 }

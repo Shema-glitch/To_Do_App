@@ -1,57 +1,43 @@
-
 import SwiftUI
 
 struct CalendarTaskView: View {
     let tasks: [TodoTask]
-    @Environment(\.presentationMode) var presentationMode
-    @State private var selectedDate = Date()
-
+    @State private var selectedDate: Date = Date()
+    @State private var selectedTask: TodoTask?
+    
     var tasksForSelectedDate: [TodoTask] {
-        let calendar = Calendar.current
-        return tasks.filter { calendar.isDate($0.date, inSameDayAs: selectedDate) }
+        tasks.filter { task in
+            Calendar.current.isDate(task.date, inSameDayAs: selectedDate)
+        }
     }
-
+    
     var body: some View {
-        NavigationView {
-            VStack {
-                DatePicker("Select Date", selection: $selectedDate, displayedComponents: [.date])
-                    .datePickerStyle(GraphicalDatePickerStyle())
-                    .padding()
-                    .onChange(of: selectedDate) { newDate in
-                        print("DEBUG: Selected date \(newDate)")
-                    }
-
-                List {
-                    if tasksForSelectedDate.isEmpty {
-                        Text("No tasks for this date.")
+        VStack {
+            DatePicker("Select Date", selection: $selectedDate, displayedComponents: [.date])
+                .datePickerStyle(.graphical)
+                .padding()
+            
+            List(tasksForSelectedDate) { task in
+                Button(action: { selectedTask = task }) {
+                    HStack {
+                        Circle()
+                            .fill(task.priority.color) // Fixed to use priority color instead of category
+                            .frame(width: 12, height: 12)
+                        Text(task.title)
+                            .foregroundColor(task.isDone ? .secondary : .primary)
+                        Spacer()
+                        Text(task.category)
+                            .font(.caption)
                             .foregroundColor(.secondary)
-                    } else {
-                        ForEach(tasksForSelectedDate) { task in
-                            VStack(alignment: .leading) {
-                                Text(task.title)
-                                    .font(.headline)
-                                if let note = task.note, !note.isEmpty {
-                                    Text(note)
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
-                                }
-                                Text(task.date, style: .time)
-                                    .font(.caption2)
-                                    .foregroundColor(.secondary)
-                                if task.recurrence != .none {
-                                    Text("Repeats: \(task.recurrence.rawValue)")
-                                        .font(.caption2)
-                                        .foregroundColor(.blue)
-                                }
-                            }
-                        }
                     }
                 }
             }
-            .navigationBarTitle("Calendar", displayMode: .inline)
-            .navigationBarItems(leading: Button("Close") {
-                presentationMode.wrappedValue.dismiss()
-            })
+        }
+        .sheet(item: $selectedTask) { task in
+            TaskDetailView(task: task)
         }
     }
 }
+
+// Removing the duplicate TaskDetailView since it's defined in SearchViews.swift
+// You'll use the unified TaskDetailView from there

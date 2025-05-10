@@ -9,6 +9,20 @@ struct AddTaskView: View {
     @State private var note = ""
     @State private var selectedCategory: String = "Work"
     @State private var selectedPriority: TaskPriority = .medium
+
+    private func updatePredictions() {
+        let predictedPriority = AIPriorityPredictor.predictPriority(from: title)
+        selectedPriority = predictedPriority
+        recurrence = AIRecurrencePredictor.predictRecurrence(from: title)
+        selectedCategory = AICategoryPredictor.predictCategory(from: title)
+
+        // Automatically enable reminder for high priority tasks
+        hasReminder = predictedPriority == .high || AIReminderPredictor.shouldSetReminder(from: title)
+
+        if let predictedDate = AIDatePredictor.predictDate(from: title) {
+            date = predictedDate
+        }
+    }
     @State private var hasReminder = false
     @State private var recurrence: TaskRecurrence = .none
 
@@ -16,7 +30,34 @@ struct AddTaskView: View {
         NavigationView {
             Form {
                 Section(header: Text("Task")) {
-                    TextField("What are you planning?", text: $title)
+                    VStack(alignment: .leading) {
+                        TextField("What are you planning?", text: $title)
+                            .onChange(of: title) { _ in
+                                updatePredictions()
+                            }
+
+                        if !title.isEmpty {
+                            let suggestions = AITaskSuggester.getSuggestions(for: title)
+                            if !suggestions.isEmpty {
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack {
+                                        ForEach(suggestions, id: \.self) { suggestion in
+                                            Button(action: {
+                                                title = "\(title.split(separator: " ").first ?? "") \(suggestion)"
+                                            }) {
+                                                Text(suggestion)
+                                                    .padding(.horizontal, 10)
+                                                    .padding(.vertical, 5)	
+                                                    .background(Color.blue.opacity(0.1))
+                                                    .cornerRadius(8)
+                                            }
+                                        }
+                                    }
+                                }
+                                .padding(.top, 5)
+                            }
+                        }
+                    }
                 }
                 Section(header: Text("Date & Time")) {
                     DatePicker("", selection: $date, displayedComponents: [.date, .hourAndMinute])
@@ -47,6 +88,45 @@ struct AddTaskView: View {
                 }
                 Section(header: Text("Note")) {
                     TextField("Add note", text: $note)
+                }
+
+                VStack {
+                    Button(action: {
+                        do {
+                            if VoiceCommandManager.shared.isRecording {
+                                VoiceCommandManager.shared.stopRecording()
+                            } else {
+                                try VoiceCommandManager.shared.startRecording()
+                                VoiceCommandManager.shared.onCommandRecognized = { command in
+                                    title = command
+                                    updatePredictions()
+                                }
+                            }
+                        } catch {
+                            print("Recording error: \(error.localizedDescription)")
+                        }
+                    }) {
+                        Label(VoiceCommandManager.shared.isRecording ? "Stop Recording" : "Add by Voice",
+                              systemImage: VoiceCommandManager.shared.isRecording ? "stop.circle.fill" : "mic.fill")
+                            .font(.headline)
+                            .padding()
+                            .background(VoiceCommandManager.shared.isRecording ? Color.red.opacity(0.2) : Color.blue.opacity(0.2))
+                            .clipShape(Capsule())
+                    }
+                    .foregroundColor(VoiceCommandManager.shared.isRecording ? .red : .blue)
+
+                    if VoiceCommandManager.shared.isRecording {
+                        Text(VoiceCommandManager.shared.transcribedText)
+                            .foregroundColor(.secondary)
+                            .padding(.top, 4)
+                    }
+
+                    if let error = VoiceCommandManager.shared.errorMessage {
+                        Text(error)
+                            .foregroundColor(.red)
+                            .font(.caption)
+                            .padding(.top, 4)
+                    }
                 }
             }
             .navigationBarTitle("New Task", displayMode: .inline)

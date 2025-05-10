@@ -13,6 +13,9 @@
 		063079842DC66DCC00781852 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0630797F2DC66DCB00781852 /* ContentView.swift */; };
 		063079862DC671FA00781852 /* AddCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063079852DC671FA00781852 /* AddCategoryView.swift */; };
 		063079882DC684B000781852 /* RollingQuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063079872DC684B000781852 /* RollingQuoteView.swift */; };
+		068B6F4E2DCBDD3600FE0791 /* VoiceCommandManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068B6F4D2DCBDD3600FE0791 /* VoiceCommandManager.swift */; };
+		0693769C2DCF74BD00A0AD5A /* SharedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0693769B2DCF74BD00A0AD5A /* SharedView.swift */; };
+		0693769E2DCF8AA600A0AD5A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0693769D2DCF8AA600A0AD5A /* Info.plist */; };
 		06EDB1C02DC7982900094050 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDB1BB2DC7982900094050 /* ShareSheet.swift */; };
 		06EDB1C12DC7982900094050 /* ImportExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDB1BC2DC7982900094050 /* ImportExportManager.swift */; };
 		06EDB1C22DC7982900094050 /* SearchViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EDB1BD2DC7982900094050 /* SearchViews.swift */; };
@@ -29,6 +32,7 @@
 		06F020B72DC53F9A00277BE0 /* To_Do_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F020B62DC53F9A00277BE0 /* To_Do_AppTests.swift */; };
 		06F020C12DC53F9A00277BE0 /* To_Do_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F020C02DC53F9A00277BE0 /* To_Do_AppUITests.swift */; };
 		06F020C32DC53F9A00277BE0 /* To_Do_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F020C22DC53F9A00277BE0 /* To_Do_AppUITestsLaunchTests.swift */; };
+		06F9EC7C2DCC9B660002843A /* TutorialOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F9EC7B2DCC9B660002843A /* TutorialOverlay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,9 @@
 		0630797F2DC66DCB00781852 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		063079852DC671FA00781852 /* AddCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCategoryView.swift; sourceTree = "<group>"; };
 		063079872DC684B000781852 /* RollingQuoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RollingQuoteView.swift; sourceTree = "<group>"; };
+		068B6F4D2DCBDD3600FE0791 /* VoiceCommandManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceCommandManager.swift; sourceTree = "<group>"; };
+		0693769B2DCF74BD00A0AD5A /* SharedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedView.swift; sourceTree = "<group>"; };
+		0693769D2DCF8AA600A0AD5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		06EDB1BB2DC7982900094050 /* ShareSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		06EDB1BC2DC7982900094050 /* ImportExportManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportExportManager.swift; sourceTree = "<group>"; };
 		06EDB1BD2DC7982900094050 /* SearchViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViews.swift; sourceTree = "<group>"; };
@@ -74,6 +81,7 @@
 		06F020BC2DC53F9A00277BE0 /* To-Do AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "To-Do AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		06F020C02DC53F9A00277BE0 /* To_Do_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_AppUITests.swift; sourceTree = "<group>"; };
 		06F020C22DC53F9A00277BE0 /* To_Do_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = To_Do_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		06F9EC7B2DCC9B660002843A /* TutorialOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialOverlay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +112,7 @@
 		06F020992DC53F9600277BE0 = {
 			isa = PBXGroup;
 			children = (
+				0693769D2DCF8AA600A0AD5A /* Info.plist */,
 				06F020A42DC53F9600277BE0 /* To-Do App */,
 				06F020B52DC53F9A00277BE0 /* To-Do AppTests */,
 				06F020BF2DC53F9A00277BE0 /* To-Do AppUITests */,
@@ -124,6 +133,7 @@
 		06F020A42DC53F9600277BE0 /* To-Do App */ = {
 			isa = PBXGroup;
 			children = (
+				06F9EC7B2DCC9B660002843A /* TutorialOverlay.swift */,
 				06EDB1C92DC7CF8700094050 /* CreditsView.swift */,
 				06EDB1C72DC7CA7E00094050 /* SettingsView.swift */,
 				06EDB1C52DC79E7E00094050 /* CategoryCard.swift */,
@@ -141,8 +151,10 @@
 				06F020A52DC53F9600277BE0 /* To_Do_AppApp.swift */,
 				06F020A72DC53F9600277BE0 /* CalendarTaskView.swift */,
 				06EDB1CB2DC7E02E00094050 /* ThemeManager.swift */,
+				068B6F4D2DCBDD3600FE0791 /* VoiceCommandManager.swift */,
 				06F020A92DC53F9A00277BE0 /* Assets.xcassets */,
 				06F020AB2DC53F9A00277BE0 /* Preview Content */,
+				0693769B2DCF74BD00A0AD5A /* SharedView.swift */,
 			);
 			path = "To-Do App";
 			sourceTree = "<group>";
@@ -278,6 +290,7 @@
 			files = (
 				06F020AD2DC53F9A00277BE0 /* Preview Assets.xcassets in Resources */,
 				06F020AA2DC53F9A00277BE0 /* Assets.xcassets in Resources */,
+				0693769E2DCF8AA600A0AD5A /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +319,8 @@
 				06EDB1CA2DC7CF8700094050 /* CreditsView.swift in Sources */,
 				06EDB1C12DC7982900094050 /* ImportExportManager.swift in Sources */,
 				06EDB1C42DC7982900094050 /* EditTaskView.swift in Sources */,
+				068B6F4E2DCBDD3600FE0791 /* VoiceCommandManager.swift in Sources */,
+				0693769C2DCF74BD00A0AD5A /* SharedView.swift in Sources */,
 				06EDB1C32DC7982900094050 /* StatisticsView.swift in Sources */,
 				063079862DC671FA00781852 /* AddCategoryView.swift in Sources */,
 				06EDB1C22DC7982900094050 /* SearchViews.swift in Sources */,
@@ -316,6 +331,7 @@
 				06F020A82DC53F9600277BE0 /* CalendarTaskView.swift in Sources */,
 				06F020A62DC53F9600277BE0 /* To_Do_AppApp.swift in Sources */,
 				063079812DC66DCC00781852 /* Models.swift in Sources */,
+				06F9EC7C2DCC9B660002843A /* TutorialOverlay.swift in Sources */,
 				06EDB1C62DC79E7F00094050 /* CategoryCard.swift in Sources */,
 				06EDB1C02DC7982900094050 /* ShareSheet.swift in Sources */,
 				063079832DC66DCC00781852 /* TaskListView.swift in Sources */,
@@ -407,7 +423,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -464,7 +480,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -482,8 +498,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"To-Do App/Preview Content\"";
+				DEVELOPMENT_TEAM = TBZBQ8Z3N9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "To-Do-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "To-Do App Fast & Reliable";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -513,8 +531,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"To-Do App/Preview Content\"";
+				DEVELOPMENT_TEAM = TBZBQ8Z3N9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "To-Do-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "To-Do App Fast & Reliable";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
