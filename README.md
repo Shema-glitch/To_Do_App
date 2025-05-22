@@ -1,6 +1,7 @@
 
-# 📝 To-Do App
+# 📝 TaskFlow
 
+Welcome to TaskFlow - Your AI-Powered Task Management Companion! ✨
 A simple and elegant task manager app built with **SwiftUI** for iOS. It allows users to add, manage, and organize daily tasks efficiently with calendar support and a clean responsive UI.
 
 ---
@@ -22,18 +23,25 @@ A simple and elegant task manager app built with **SwiftUI** for iOS. It allows 
 - 💾 Local data persistence
 - 🔋 Task completion progress
 
-## 🚀 Planned Features
+## AI Magic
+- 🎯 Smart Priority Detection
+- 📁 Automatic Category Assignment
+- 📅 Intelligent Date Suggestions
+- 🔄 Pattern-Based Recurrence
+- ⏰ Context-Aware Reminders
+- 💡 Smart Task Suggestions
+- 🎤 Voice Command Support
 
-- 📊 Task statistics and trends
-- 📤 Import/Export capabilities
-- 🔍 Global search across categories
-- 📎 Subtasks support
-- 📝 Rich text notes
-- 🎨 Custom category colors
-- ↕️ Drag-and-drop task prioritization
-- 🎯 Category management (edit/delete)
-- 📱 Task sharing
-- 🗂 Multiple sorting options
+## 🚀 Planned Features
+Coming Soon
+- 📊 Advanced statistics dashboard
+- 📤 Cloud backup system
+- 📎 Subtask hierarchies
+- 📝 Rich text formatting
+- 🎯 Custom category creation
+- ↕️ Drag-and-drop organization
+- 📱 Cross-device sync
+- 🗂 Advanced sorting options
 
 ---
 
@@ -59,3 +67,10 @@ git clone https://github.com/Shema-glitch/To_Do_App.git
 cd To_Do_App
 open "To-Do App.xcodeproj"
 ```
+
+---
+
+<p align="center">
+  Made with 💙 by <a href="https://github.com/Shema-glitch/To_Do_App" target="_blank"><strong>Shema Charmant</strong></a> &nbsp; | &nbsp;
+  <a href="#top">Back to top 🔝</a>
+</p>
